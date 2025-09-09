@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rice Mill - Premium Rice Products</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+:root {
+  --primary: #2f5233;
+  --secondary: #cfa82d;
+  --background: #fafaf8;
+  --text-dark: #1d1d1d;
+  --text-light: #555;
+  --radius: 14px;
+  --shadow: 0 6px 16px rgba(0,0,0,0.1);
+  --shadow-hover: 0 10px 25px rgba(0,0,0,0.18);
+  --transition: all 0.3s ease;
+}
+
+* {margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif;}
+body {background: var(--background); color: var(--text-dark); line-height: 1.7;}
+
+/* Top Bar */
+.top-bar {background: var(--secondary); color: #fff; font-size: 14px; padding: 8px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;}
+.top-bar i {margin-right: 6px;}
+
+/* Header */
+header {background: var(--primary); padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow);}
+header .logo img {height: 55px; border-radius: var(--radius); transition: var(--transition);}
+header .logo img:hover {transform: scale(1.05);}
+nav {display: flex; gap: 20px;}
+nav a {color: #fff; text-decoration: none; font-weight: 500; padding: 8px 14px; border-radius: var(--radius); transition: var(--transition);}
+nav a:hover {background: var(--secondary); color: var(--primary);}
+.menu-toggle {display: none; font-size: 1.6rem; color: #fff; cursor: pointer;}
+
+/* Slider */
+#slider {max-width: 1200px; margin: 40px auto; position: relative; overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow); height: 450px;}
+.slide {position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease-in-out;}
+.slide img {width: 100%; height: 100%; object-fit: cover;}
+.slide.active {opacity: 1; z-index: 2;}
+.dots {position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px;}
+.dot {width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.7); cursor: pointer; transition: var(--transition);}
+.dot.active, .dot:hover {background: var(--secondary); transform: scale(1.2);}
+
+/* Section Headings */
+h2 {text-align: center; font-size: 2.2rem; color: var(--primary); margin-bottom: 50px; font-weight: 700; position: relative;}
+h2::after {content: ""; width: 70px; height: 3px; background: var(--secondary); display: block; margin: 12px auto 0; border-radius: 2px;}
+
+/* Products */
+#products {padding: 70px 20px; max-width: 1100px; margin: auto;}
+.product-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;}
+.product-card {background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; transition: var(--transition);}
+.product-card:hover {transform: translateY(-6px); box-shadow: var(--shadow-hover);}
+.product-card img {width: 100%; height: 200px; object-fit: cover;}
+.product-card h3 {margin: 18px 16px 10px; color: var(--primary);}
+.product-card p {margin: 0 16px 20px; color: var(--text-light); font-size: 0.95rem;}
+
+/* Rice Categories */
+#categories {background: #f5f5f0; padding: 90px 20px;}
+.categories-container {display: flex; align-items: center; justify-content: center; gap: 50px; flex-wrap: wrap;}
+
+/* Left Image */
+.category-image img {width: 320px; border-radius: var(--radius); box-shadow: var(--shadow); transition: var(--transition);}
+.category-image img:hover {transform: scale(1.07) rotate(-2deg);}
+
+/* Content */
+.category-content {max-width: 420px;}
+.brand-name {font-size: 1.8rem; font-weight: bold; margin-bottom: 10px; color: var(--primary);}
+.rice-type {font-size: 1.25rem; color: var(--secondary); margin-bottom: 20px;}
+.read-more {display: inline-block; margin-top: 18px; background: var(--primary); color: #fff; padding: 10px 22px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: var(--transition);}
+.read-more:hover {background: var(--secondary); color: var(--primary);}
+
+/* Right column: vertical circles */
+.rice-vertical {display: flex; flex-direction: column; align-items: flex-start; gap: 18px; position: relative;}
+
+/* Circles */
+.rice-circle {
+  width: 80px; height: 80px; border-radius: 50%; cursor: pointer;
+  box-shadow: var(--shadow); position: relative; transition: var(--transition);
+  border: 3px solid var(--secondary); background: #fff; display: flex; align-items: center; justify-content: center;
+  /* IMPORTANT: let tooltips overflow outside the circle */
+  overflow: visible;
+}
+.rice-circle img {width: 100%; height: 100%; object-fit: cover; border-radius: 50%;}
+.rice-circle:hover {transform: scale(1.08); border-color: var(--primary);}
+
+/* Tooltip to the RIGHT of the circle */
+.rice-circle::after {
+  content: attr(data-label);
+  position: absolute;
+  left: calc(100% + 10px);               /* to the right of the circle */
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--secondary);
+  color: #fff;
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition);
+  white-space: nowrap;
+  box-shadow: var(--shadow);
+  z-index: 3;
+}
+.rice-circle::before {                   /* little arrow */
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-left-color: var(--secondary);
+  opacity: 0;
+  transition: var(--transition);
+  z-index: 3;
+}
+.rice-circle:hover::after {opacity: 1; left: calc(100% + 14px);}
+.rice-circle:hover::before {opacity: 1; left: calc(100% + 2px);}
+
+/* Certifications */
+#certifications {padding: 70px 20px; background: #fff;}
+.cert-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; max-width: 1000px; margin: auto;}
+.cert-card {background: #fafafa; padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow); transition: var(--transition); text-align: center;}
+.cert-card:hover {transform: translateY(-8px); box-shadow: var(--shadow-hover);}
+.cert-card img {max-width: 90px; margin-bottom: 15px;}
+.cert-card p {font-size: 0.95rem; font-weight: 600; color: var(--text-dark);}
+
+/* Footer */
+footer {text-align: center; padding: 22px; background: var(--primary); color: #fff; margin-top: 40px;}
+
+/* Responsive */
+@media (max-width: 768px) {
+  nav {display: none; flex-direction: column; background: var(--primary); padding: 12px; border-radius: var(--radius);}
+  nav.show {display: flex;}
+  .menu-toggle {display: block;}
+  .categories-container {flex-direction: column; text-align: center;}
+  .category-image img {width: 80%;}
+  /* On small screens, keep tooltip readable (move slightly further right) */
+  .rice-circle:hover::after {left: calc(100% + 10px);}
+}
+
+/* Contact Form */
+#contact-form {max-width: 600px; margin: 60px auto; padding: 0 20px;}
+#contact-form h2 {margin-bottom: 20px; font-size: 2rem; color: var(--primary);}
+#contact-form form {display: flex; flex-direction: column; gap: 14px;}
+#contact-form input, #contact-form textarea {padding: 12px; border: 1px solid #ccc; border-radius: var(--radius); font-size: 1rem; color: var(--text-dark);}
+#contact-form button {padding: 12px 20px; background: var(--primary); color: #fff; border: none; border-radius: var(--radius); cursor: pointer; transition: var(--transition);}
+#contact-form button:hover {background: var(--secondary);}
+#contact-form textarea {max-width: 600px; width: 100%; height: 150px; resize: none;}
+
+/* Contact Section */
+#Contact {padding: 70px 20px; background: #f8faff; text-align: center;}
+#Contact h2 {font-size: 2rem; margin-bottom: 40px; color: #142e70;}
+.contact-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; max-width: 1000px; margin: auto;}
+.contact-card {background: #fff; padding: 25px 20px; border-radius: 14px; box-shadow: 0 6px 16px rgba(0,0,0,0.08); transition: transform 0.3s ease, box-shadow 0.3s ease;}
+.contact-card:hover {transform: translateY(-6px); box-shadow: 0 10px 25px rgba(0,0,0,0.15);}
+.contact-card .icon {font-size: 2.5rem; margin-bottom: 10px; border: 2px solid currentColor; border-radius: 50%; padding: 10px;}
+.contact-card h3 {font-size: 1.1rem; margin: 8px 0 5px; color: #333;}
+.contact-card p {font-size: 0.9rem; color: #666;}
+.contact-card a {text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center;}
+
+/* Back to Top */
+#backToTop {position: fixed; bottom: 30px; right: 30px; background: var(--secondary); border: none; padding: 12px 16px; border-radius: 50%; cursor: pointer; display: none; box-shadow: var(--shadow);}
+#backToTop:hover {background: var(--primary); color: #fff; box-shadow: var(--shadow-hover);}
+  </style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div>Welcome to Our Rice Mills</div>
+  <div>
+    <span><i class="fas fa-envelope"></i> info@ricemill.com</span>
+    <span><i class="fas fa-clock"></i> Mon – Sat 8:00 – 6:30</span>
+  </div>
+</div>
+
+<!-- Header -->
+<header>
+  <div class="logo"><img src="./1.1.avif" alt="Logo"></div>
+  <span class="menu-toggle">☰</span>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#products">Products</a>
+    <a href="#categories">Categories</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#Contact">Contact</a>
+  </nav>
+</header>
+
+<!-- Slider -->
+<section id="slider">
+  <div class="slide active"><img src="https://as2.ftcdn.net/v2/jpg/13/94/23/69/1000_F_1394236951_PUjJ8VYUQrQsmjI0XhnDBEpy2rLLjZWe.jpg" alt=""></div>
+  <div class="slide"><img src="https://as1.ftcdn.net/v2/jpg/13/97/34/00/1000_F_1397340043_h5ZyqIFIdVoacqyRxZs1WSiKKsWxyPlb.jpg" alt=""></div>
+  <div class="slide"><img src="https://as1.ftcdn.net/v2/jpg/12/07/22/20/1000_F_1207222094_XdzXuJe6td4Fc6uOI9Gz8cY0IjmIq9u4.jpg" alt=""></div>
+  <div class="dots"></div>
+</section>
+
+<!-- Rice Categories -->
+<section id="categories">
+  <h2>Rice Categories</h2>
+  <div class="categories-container">
+    <!-- Left side: Image -->
+    <div class="category-image">
+      <img src="https://i.ibb.co/2yXH1dK/rice-bag.png" alt="Rice Bag">
+    </div>
+
+    <!-- Middle: Content -->
+    <div class="category-content">
+      <h3 class="brand-name">Maharajah Brand</h3>
+      <h4 class="rice-type">Sona Rice</h4>
+      <p>Maharaja Rice Industries produces high-quality SONA RAJABOGAM OLD RICE Maharaja brand in an endeavour to promote good health.</p>
+      <a href="#" class="read-more">Read More</a>
+    </div>
+
+    <!-- Right side: Vertical rice types -->
+    <div class="rice-vertical">
+      <div class="rice-circle" data-label="Poonam Rice">
+        <img src="./img/poonam.png" alt="Poonam Rice">
+      </div>
+      <div class="rice-circle" data-label="Basmati Rice">
+        <img src="./img/1121 Golden Sella Basmati Rice.webp" alt="Basmati Rice">
+      </div>
+      <div class="rice-circle" data-label="Golden Sella Rice">
+        <img src="./img/golden sella.webp" alt="Golden sella Rice">
+      </div>
+      <div class="rice-circle" data-label="Steamed Rice">
+        <img src="./img/steam.webp" alt="Steamed Rice">
+      </div>
+      <div class="rice-circle" data-label="Jeera Rice">
+        <img src="./img/jeera rice.png" alt="Jeera Rice">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Products -->
+<section id="products">
+  <h2>Our Products</h2>
+  <div class="product-grid">
+    <div class="product-card">
+      <img src="https://as1.ftcdn.net/v2/jpg/02/93/95/66/1000_F_293956635_Ly7vXG3k9b8e4cX1bX6mYk1bX9vZ5F6D.jpg" alt="Product 1">
+      <h3>Basmati Rice</h3>
+      <p>Premium long-grain basmati rice with a fragrant aroma and fluffy texture.</p>
+    </div>
+    <div class="product-card">
+      <img src="https://as1.ftcdn.net/v2/jpg/02/93/95/66/1000_F_293956635_Ly7vXG3k9b8e4cX1bX6mYk1bX9vZ5F6D.jpg" alt="Product 2">
+      <h3>Brown Rice</h3>
+      <p>Nutritious brown rice rich in fiber and essential nutrients for a healthy diet.</p>
+    </div>
+    <div class="product-card">
+      <img src="https://as1.ftcdn.net/v2/jpg/02/93/95/66/1000_F_293956635_Ly7vXG3k9b8e4cX1bX6mYk1bX9vZ5F6D.jpg" alt="Product 3">
+      <h3>Steamed Rice</h3>
+      <p>Soft and fluffy steamed rice, perfect for everyday meals and special occasions.</p>
+    </div>
+    <div class="product-card">
+      <img src="https://as1.ftcdn.net/v2/jpg/02/93/95/66/1000_F_293956635_Ly7vXG3k9b8e4cX1bX6mYk1bX9vZ5F6D.jpg" alt="Product 4">
+      <h3>Organic Rice</h3>
+      <p>Certified organic rice grown without harmful pesticides for a pure taste.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Map -->
+<section>
+  <h2>Find Us on Google Maps</h2>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3602.622887418065!2d84.43709209999999!3d26.467485699999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39931bd0df3dee99%3A0xfa5d7a8ce6881179!2sRajnish%20Kumar%20and%20Co.%20(Chartered%20Accountant)!5e0!3m2!1sen!2sin!4v1725189952000!5m2!1sen!2sin" width="100%" height="350" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy"></iframe>
+</section>
+
+<!-- Certifications -->
+<section id="certifications">
+  <h2>Our Certifications</h2>
+  <div class="cert-grid">
+    <div class="cert-card"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/ISO_9001-2015.svg" alt="ISO"><p>ISO 9001:2015 Quality Management</p></div>
+    <div class="cert-card"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/FSSAI.svg" alt="FSSAI"><p>FSSAI Food Safety Certification</p></div>
+    <div class="cert-card"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d1/HACCP_logo.svg" alt="HACCP"><p>HACCP Food Safety Management</p></div>
+    <div class="cert-card"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Organic_Certification_Logo.svg" alt="Organic"><p>Certified Organic Products</p></div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="Contact">
+  <h2>Contact Us</h2>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <a href="https://www.instagram.com/info.rknc01" target="_blank">
+        <i class="fab fa-instagram icon" style="color:#E1306C;"></i>
+        <h3>Instagram</h3>
+      </a>
+    </div>
+    <div class="contact-card">
+      <a href="https://www.facebook.com/profile.php?id=61579886459062" target="_blank">
+        <i class="fab fa-facebook icon" style="color:#1877F2;"></i>
+        <h3>Facebook</h3>
+      </a>
+    </div>
+    <div class="contact-card">
+      <a href="tel:+919654785836">
+        <i class="fas fa-phone icon" style="color:#FF6600;"></i>
+        <h3>Phone</h3>
+      </a>
+    </div>
+    <div class="contact-card">
+      <a href="mailto:inforknc01@gmail.com">
+        <i class="fas fa-envelope icon" style="color:#EA4335;"></i>
+        <h3>Email</h3>
+        <p>inforknc01@gmail.com</p>
+      </a>
+    </div>
+    <div class="contact-card">
+      <a href="https://www.youtube.com/@user-qg6dh2ob9d" target="_blank">
+        <i class="fab fa-youtube icon" style="color:#FF0000;"></i>
+        <h3>YouTube</h3>
+      </a>
+    </div>
+    <div class="contact-card">
+      <a href="https://www.linkedin.com" target="_blank">
+        <i class="fab fa-linkedin icon" style="color:#0A66C2;"></i>
+        <h3>LinkedIn</h3>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Form -->
+<section id="contact-form">
+  <h2>Contact Us</h2>
+  <form action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="781ed820-22c9-482c-a24c-6630cc0bcc51">
+    <input type="text" name="name" required placeholder="Full Name" aria-label="Full Name">
+    <input type="email" name="email" required placeholder="Email" aria-label="Email">
+    <input type="text" name="phone" required placeholder="Phone Number" aria-label="Phone Number">
+    <textarea name="message" required placeholder="Resume drive link" aria-label="Resume Link"></textarea>
+    <button type="submit">Submit Application</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>&copy; 2025 Rice Mill. All rights reserved.</p>
+</footer>
+
+<!-- Back to Top -->
+<button id="backToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</button>
+
+<script>
+  // Mobile Menu Toggle
+  const toggle = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('nav');
+  toggle.addEventListener('click', () => nav.classList.toggle('show'));
+
+  // Slider
+  const slides = document.querySelectorAll('#slider .slide');
+  const dotsContainer = document.querySelector('.dots');
+  let index = 0;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.classList.add('dot');
+    if (i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => { index = i; updateSlider(); });
+    dotsContainer.appendChild(dot);
+  });
+
+  function updateSlider() {
+    slides.forEach((s, i) => s.classList.toggle('active', i === index));
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === index));
+  }
+
+  setInterval(() => { index = (index + 1) % slides.length; updateSlider(); }, 5000);
+
+  // Show back to top button
+  const backToTop = document.getElementById("backToTop");
+  window.addEventListener("scroll", () => {
+    backToTop.style.display = window.scrollY > 300 ? "block" : "none";
+  });
+</script>
+</body>
+</html>

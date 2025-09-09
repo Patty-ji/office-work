@@ -1,0 +1,324 @@
+/* Root Variables */
+:root {
+  --primary: #142e70;
+  --secondary: #00bfa6;
+  --accent: #f7f3f2;
+  --light: #f7f9fc;
+  --dark: #1a1a1a;
+  --text-dark: #333;
+  --text-light: #fff;
+  --radius: 12px;
+  --shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  --transition: 0.3s ease-in-out;
+  --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--light);
+  color: var(--text-dark);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  width: 100%;
+  background: var(--light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 5%;
+  box-shadow: var(--shadow);
+  z-index: 1000;
+  transition: var(--transition);
+}
+
+.navbar.scrolled {
+  background: var(--primary);
+}
+
+.navbar .logo img {
+  height: 50px;
+  border-radius: var(--radius);
+}
+
+.navbar ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.navbar ul li a:hover {
+  color: var(--secondary);
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* Hero Section */
+.hero-background {
+  height: 100vh;
+  background: var(--gradient), url("./hero.jpg") center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-light);
+  text-align: center;
+  padding: 20px;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: auto;
+}
+
+/* Team Section */
+#team {
+  padding: 80px 5%;
+  text-align: center;
+  background: var(--accent);
+}
+
+#team h2 {
+  font-size: 2.2rem;
+  margin-bottom: 40px;
+  color: var(--primary);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+.team-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.team-card:hover {
+  transform: translateY(-8px);
+}
+
+.team-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.team-card h3 {
+  margin: 15px 0 5px;
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+
+/* Gallery Carousel */
+.carousel {
+  padding: 80px 5%;
+  text-align: center;
+  background: var(--light);
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel h2 {
+  margin-bottom: 30px;
+  color: var(--primary);
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide {
+  min-width: 100%;
+}
+
+.carousel-slide img {
+  width: 100%;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--primary);
+  color: var(--text-light);
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: var(--transition);
+}
+
+.carousel-btn:hover {
+  background: var(--secondary);
+}
+
+.prev { left: 20px; }
+.next { right: 20px; }
+
+.carousel-dots {
+  margin-top: 15px;
+}
+
+.dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 0 6px;
+  background: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: var(--secondary);
+}
+
+/* Contact */
+#Contact {
+  padding: 80px 5%;
+  text-align: center;
+  background: var(--accent);
+}
+
+#Contact h2 {
+  margin-bottom: 30px;
+  color: var(--primary);
+}
+
+#Contact ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+#Contact li {
+  text-align: center;
+}
+
+#Contact a.icon {
+  display: block;
+  width: 60px;
+  height: 60px;
+  background: var(--gradient);
+  border-radius: 50%;
+  margin: 0 auto 10px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+#Contact a.icon:hover {
+  transform: scale(1.1);
+}
+
+/* Join Team */
+#join-team {
+  padding: 80px 5%;
+  text-align: center;
+  background: var(--light);
+}
+
+#join-team h2 {
+  margin-bottom: 25px;
+  color: var(--primary);
+}
+
+#join-team form {
+  max-width: 500px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#join-team input,
+#join-team textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+  font-size: 1rem;
+}
+
+#join-team button {
+  background: var(--gradient);
+  color: var(--text-light);
+  border: none;
+  padding: 14px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+#join-team button:hover {
+  opacity: 0.9;
+}
+
+/* Footer */
+footer {
+  background: var(--primary);
+  color: var(--text-light);
+  text-align: center;
+  padding: 20px;
+  margin-top: 50px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar ul {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: var(--light);
+    flex-direction: column;
+    gap: 15px;
+    width: 200px;
+    padding: 20px;
+    transform: translateX(100%);
+    transition: var(--transition);
+  }
+
+  .navbar ul.open {
+    transform: translateX(0);
+  }
+
+  .menu-toggle {
+    display: block;
+    color: var(--text-dark);
+  }
+}

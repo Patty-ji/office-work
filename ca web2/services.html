@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Services</title>
+    <link rel="icon" type="image/x-icon" href="https://images.seeklogo.com/logo-png/51/1/ca-india-logo-png_seeklogo-513934.png" >
+
+  <style>
+
+    /* =========================
+   Global Theme Variables
+========================= */
+:root {
+  --primary: #003f83;
+  --secondary: #003f83;
+  --accent: #003f83;
+  --light: #003f83;
+  --dark: #121212;
+  --text-dark: #2c2c2c;
+  --text-light: #f5f5f5;
+  --radius: 12px;
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.18);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  --transition: 0.3s ease;
+}
+
+    /* Global Styles */
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background: #f8faff;
+      color: #333;
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0;
+      font-weight: 600;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      color: white;
+      padding: 80px 10%;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      max-width: 720px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+
+    /* Highlight Section */
+    .highlight {
+      background: #fffbf2;
+      padding: 20px 15px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #ff9800;
+      border-top: 3px solid #ff9800;
+      border-bottom: 3px solid #ff9800;
+    }
+
+    /* Services Grid */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+      padding: 90px 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .service {
+      background: white;
+      padding: 25px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .service:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .service h2 {
+      font-size: 1.5rem;
+      color: #003366;
+      margin-bottom: 12px;
+    }
+
+    .service h3 {
+      font-size: 1.2rem;
+      color: #004080;
+      margin-bottom: 12px;
+    }
+
+    .service h4 {
+      font-size: 1rem;
+      color: #00509e;
+      margin: 15px 0 10px;
+    }
+
+    .service ul {
+      margin: 0;
+      padding-left: 20px;
+      max-height: 180px;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+
+    .service.expanded ul {
+      max-height: 1000px;
+    }
+
+    .read-more {
+      display: inline-block;
+      margin-top: 12px;
+      color: #0073e6;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s ease;
+    }
+
+    .read-more:hover {
+      color: #004080;
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      background: #003366;
+      color: white;
+      padding: 40px 20px;
+      margin-top: 50px;
+      font-size: 0.95rem;
+    }
+
+    footer p {
+      margin: 5px 0;
+      opacity: 0.9;
+    }
+    /* Navbar */
+.navbar {
+  width: 100%; position: fixed; top: 0; left: 0;
+  background: linear-gradient(90deg,var(--primary),var(--secondary),var(--accent));
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 28px; z-index: 1000; transition: 0.3s;
+}
+.navbar.scrolled { background: var(--primary); box-shadow: var(--shadow); }
+.navbar .logo img { height: 42px; }
+
+.navbar ul { list-style: none; display: flex; gap: 22px; }
+.navbar a { color: #fff; text-decoration: none; font-weight: 600; transition: 0.3s; padding: 6px 8px; }
+.navbar a:hover, .navbar a.active { color: #ffcb05; border-bottom: 2px solid #ffcb05; }
+
+/* Mobile Menu */
+.menu-toggle { display: none; font-size: 1.8rem; color: #fff; cursor: pointer; }
+@media(max-width:768px) {
+  .navbar ul {
+    position: absolute; top: 60px; left: 0; width: 100%;
+    background: var(--primary); flex-direction: column; align-items: center;
+    max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+  }
+  .navbar ul.open { max-height: 400px; }
+  .menu-toggle { display: block; }
+
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav class="navbar">
+    <div class="logo" href="../index.html" >
+      <a href="./index.html"><img src="./1.1.avif" alt="Company Logo"></a>
+    </div>
+    <span class="menu-toggle">☰</span>
+    <ul>
+      <li><a href="./index.html">Home</a></li>
+     
+      <li><a href="./index.html#Contact">Contact</a></li>
+      <li><a href="./index.html#team">Our Team</a></li>
+      <li><a href="./index.html#gallery">Gallery</a></li>
+      <li><a href="./about.html">About</a></li>
+        <li><a href="./index.html#join-team">Career</a></li>
+         <li><a href="#">           </a></li>
+    </ul>
+  
+  </nav>
+
+    <h1>Our Services</h1>
+    <p>End-to-end financial, audit, and compliance solutions tailored for you.</p>
+  </header>
+
+  <section><center><h1>✨ First Consultation is Absolutely Free ✨</h1></center></section>
+
+  <!-- Services -->
+  <div class="container">
+    <div class="service">
+      <h2>🔍 Auditing & Assurance</h2>
+      <ul>
+        <li>Statutory Audit</li>
+        <li>Internal Audit</li>
+        <li>Internal Financial Control (IFC) over financial reporting Audit</li>
+        <li>Bank Concurrent Audit</li>
+        <li>Bank Statutory Audit</li>
+        <li>Income Tax Audit u/s 44 AB</li>
+        <li>Transfer Pricing Audit u/s 92 E</li>
+        <li>GST Audit</li>
+        <li>Form 10B Audit in case of NGO</li>
+        <li>Forensic Audit</li>
+        <li>Due diligence</li>
+        <li>Certification work</li>
+        <li>Audit of Form 15CB of Income Tax Act and Issue Form 15CA</li>
+        <li>SOX Compliance to ensure adequate internal controls are in place and effective</li>
+      </ul>
+      <span class="read-more">Read More</span>
+    </div>
+
+    <div class="service">
+      <h2>🧾 Accounting & Bookkeeping</h2>
+      <ul>
+        <li>Book Keeping and Accounting for Individuals, Firms, NGOs and Companies including foreign Companies</li>
+        <li>Design, implementation and review of accounting manual</li>
+        <li>Advice on various Accounting Standards, Ind AS & IFR</li>
+      </ul>
+    </div>
+
+    <div class="service">
+      <h2>® Trademark</h2>
+      <ul>
+        <li>Exploring new Trademarks and study to scrutinize if the proposed trademark is already in use.</li>
+        <li>Advising on Trademark availability for use and/ or registration.</li>
+        <li>Groundwork for all procedural framework required in Trademark registration.</li>
+        <li>Filing and processing of application for Registration of Trademark. </li>
+      </ul>
+    
+    </div>
+
+    <div class="service">
+      <h3>MATTERS RELATED TO ENFORCEMENT DIRECTORATE UNDER PREVENTION OF MONEY LAUNDERING ACT (PMLA) & FEMA.</h3>
+      <ul>
+        <li>Appear before Enforcement Directorate.</li>
+        <li>Assist the taxpayer and individuals in summons issued from ED.</li>
+        <li>Assist the taxpayer/ individuals in prosecution, penalty and compounding of offences.</li>
+        <li>Appear before Adjudicating Authorities and Appellate Tribunal.</li>
+        <li>Consultancy related to FEMA violation before ED.</li>
+      </ul>
+  
+    </div>
+
+<div class="service">
+      <h2>MATTERS RELATED WITH BENAMI PROPERTY TRANSACTIONS</h2>
+      <ul>
+        <li>Representing before Initiating Officer</li>
+        <li>Systematic procedural dealing with Approving Authority</li>
+        <li>Representing before the Administration</li>
+          <li>Experts representing in front of Adjudicating Authority</li>
+            <li>Proper guidance regarding compliances.</li>
+      </ul>
+
+    </div>
+
+ <div class="service">
+      <h3>MATTERS RELATED TO BLACK MONEY AND IMPOSITION OF TAX ACT 2015.</h3>
+      <ul>
+        <li>Appear before tax authorities for assessment and reassessment</li>
+        <li>Appeals to Commissioner (Appeals) and Appellate Tribuna. </li>
+      </ul>
+    </div>
+
+    <div class="service">
+      <h2>🌍 International Taxation</h2>
+      <ul>
+        <li>Determining taxability on international transactions</li>
+        <li>Structuring international transactions including capital transactions for efficient tax planning</li>
+        <li>Assisting in structuring business in a tax–efficient manner by offering strategies and solutions which are in line with objectives</li>
+        <li>Compliance with FEMA and RBI regulations</li>
+        <li>Determining benefits arising out of Double Taxation Avoidance Agreements</li>
+        <li>Obtaining TDS Exemption Certificates, Tax Residency Certificates</li>
+        <li>Tax Clearance Certificate, Form 30A</li>
+        <li>FATCA & CRS Services, including classification, due diligence, reporting, health checks etc.</li>
+        <li>Transfer Pricing Assignments</li>
+        <li>Assisting in preparation of Master File</li>
+        <li>Assistance with CbCR reporting requirement</li>
+        <li>Consultancy and advisory.</li>
+
+      </ul>
+       <span class="read-more">Read More</span>
+    </div>
+
+    <div class="service">
+      <h2>🕵️FORENSIC AUDIT SERVICES.</h2>
+      <ul>
+        <li>Reviewing financial documents to identify inaccuracies</li>
+        <li>Analyzing financial data and tracing discrepancies</li>
+        <li>Forecasting and preventing financial frauds</li>
+         <li>Due Diligence</li>
+          <li>Fraud Risk Assessment</li>
+           <li>Information Security Risk Assessment</li>
+            <li>Asset Tracing and misappropriation</li>
+             <li>Vendor monitoring</li>
+              <li>Litigation Support</li>
+               <li>Money laundering Compliance</li>
+                 <h4>Matters related to compliance of Money Laundering Act 2003, this compliance programme includes:</h4>
+      <ul>
+        <li>Compliance regulations</li>
+        <li>Designation of a Compliance officer</li>
+        <li>Independent Testing</li>
+        <li>Trainin</li>
+      </ul>
+
+      </ul>
+      <span class="read-more">Read More</span>
+    
+    </div>
+
+    <div class="service">
+      <h2>DUE DILIGENCE SERVICES</h2>
+      <ul>
+        <li>Financial Due Diligence
+
+<li>Legal Due Diligence</li>
+
+<li>Taxes Due Diligence</li>
+
+<li>Asset Purchase Due Diligence</li>
+
+<li>Management Due Diligence</li>
+
+<li>Administrative Due Diligence</li>
+
+<li>Commercial Due Diligence</li>
+
+<li>Micro-environmental Due Diligence</li>
+
+<li>Technical Due Diligence</li>
+
+<li>Human Resources Due Diligence</li>
+
+<li>Intellectual Property Due Diligence</li>
+       
+      </ul>
+     <span class="read-more">Read More</span>
+    </div>
+  </div>
+
+
+  </div>
+
+  <!-- Contact -->
+  <footer id="contact">
+    <p>&copy; C.A Rajnish Kumar. All Rights Reserved.</p>
+    <div class="sub-footer">
+      <p> Best Services in Gopalganj </p>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute("href"))
+          .scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    // Read More toggle
+    document.querySelectorAll(".service").forEach(service => {
+      const ul = service.querySelector("ul");
+      const readMore = service.querySelector(".read-more");
+      if (ul && readMore) {
+        readMore.addEventListener("click", () => {
+          service.classList.toggle("expanded");
+          readMore.textContent = service.classList.contains("expanded") 
+            ? "Read Less" 
+            : "Read More";
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
